@@ -1,6 +1,8 @@
 package com.example.kinopoisk;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
@@ -8,12 +10,17 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    RecyclerView recyclerView;
+    RecyclerView.Adapter adapter;
+    RecyclerView.LayoutManager layoutManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         ArrayList<KinoRecyclerView> kinoArrayList = new ArrayList<>();
+
         kinoArrayList.add(new KinoRecyclerView(R.drawable.pobeg_iz_shoush_01, Utils.FILM_1_TITLE, Utils.FILM_1_DESCRIPTION, Utils.FILM_1_STORYLINE));
         kinoArrayList.add(new KinoRecyclerView(R.drawable.zelenaya_milya_02, Utils.FILM_2_TITLE, Utils.FILM_2_DESCRIPTION, Utils.FILM_2_STORYLINE));
         kinoArrayList.add(new KinoRecyclerView(R.drawable.forest_gamp_03, Utils.FILM_3_TITLE, Utils.FILM_3_DESCRIPTION, Utils.FILM_3_STORYLINE));
@@ -24,5 +31,13 @@ public class MainActivity extends AppCompatActivity {
         kinoArrayList.add(new KinoRecyclerView(R.drawable.korol_lev_08, Utils.FILM_8_TITLE, Utils.FILM_8_DESCRIPTION, Utils.FILM_8_STORYLINE));
         kinoArrayList.add(new KinoRecyclerView(R.drawable.boytsovskiy_club_09, Utils.FILM_9_TITLE, Utils.FILM_9_DESCRIPTION, Utils.FILM_9_STORYLINE));
         kinoArrayList.add(new KinoRecyclerView(R.drawable.ivan_vasilevich_10, Utils.FILM_10_TITLE, Utils.FILM_10_DESCRIPTION, Utils.FILM_10_STORYLINE));
+
+        recyclerView=findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        adapter = new KinoAdapter(kinoArrayList, this);
+        layoutManager = new LinearLayoutManager(this);
+
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(layoutManager);
     }
 }
